@@ -22,7 +22,6 @@ accountRoutes.route('/').post(function(req, res) {
     res.json(addAccountSuccessRes())
   })
   .catch((err) => {
-    console.error(err)
     res.json(addAccountFailRes())
   })
 })
