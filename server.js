@@ -6,7 +6,11 @@ const PORT = 4000;
 const mongoose = require('mongoose');
 const accountRoutes = require('./routes/account.routes')
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/mern-videos', { 

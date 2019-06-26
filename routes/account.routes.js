@@ -35,6 +35,7 @@ accountRoutes.route('/login').post((req, res) => {
     password
   })
   .then((account) => {
+    console.log('>>>>>>>>', account)
     if (account) {
       res.json(loginSuccessRes(account));
     } else {
