@@ -76,6 +76,42 @@ describe('Account apis testing', () => {
     })
   })
 
+  describe('Test login api', () => {
+    it('Login with correct userName and password', (done) => {
+      chai.request(app)
+      .post('/accounts/login')
+      .send({
+        userName: 'tan',
+        password: '123456'
+      })
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.status(200);
+        expect(res.body).to.have.property('data').to.have.property('userName').to.equal('tan')
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      })
+    });
+
+    it('Login with incorrect userName and password', (done) => {
+      chai.request(app)
+      .post('/accounts/login')
+      .send({
+        userName: 'tan',
+        password: '1234567'
+      })
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.status(401);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      })
+    })
+  })
 
   after(function(done){
     mongoose.connection.db.dropDatabase(() => {
