@@ -1,10 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const PORT = 4000;
 const mongoose = require('mongoose');
-const accountRoutes = require('./routes/account.routes')
+const accountRoutes = require('./routes/account.routes');
+const videoRoutes = require('./routes/video.routes');
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -23,6 +25,7 @@ connection.once('open', function() {
 })
 
 app.use('/accounts', accountRoutes);
+app.use('/videos', videoRoutes);
 
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
