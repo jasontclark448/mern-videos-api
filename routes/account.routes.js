@@ -43,7 +43,7 @@ accountRoutes.route('/login').post((req, res) => {
   })
   .catch((err) => {
     console.error(err);
-    res.json(loginFailRes(err));
+    res.json(loginFailRes());
   });
 })
 

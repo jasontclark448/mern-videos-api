@@ -1,16 +1,18 @@
 const express = require('express');
 const videoSearch = require('youtube-search');
+const getVideosSuccessRes = require('../responses/videos/getVideosSuccess.res');
+const getVideosFailRes = require('../responses/videos/getVideosFail.res')
 const videoRoutes = express.Router();
 
 videoRoutes.route('/').get((req, res) => {
   const opts = Object.assign({
-    maxResults: 10,
     key: process.env.API_KEY,
-    location: '37.42307,-122.08427'
+    type: 'video',
+    order: 'date'
   }, req.query);
-  videoSearch('jsconfig', opts, (err, results) => {
-    if(err) return console.log('>>>>>>>>>>>>>>>>>>>>EEEEEEEE', err.response.data.error);
-    res.json(results)
+  videoSearch('', opts, (err, results, pageInfo) => {
+    if(err) return res.json(getVideosFailRes(err));
+    return res.json(getVideosSuccessRes(results, pageInfo))
   })
 })
 

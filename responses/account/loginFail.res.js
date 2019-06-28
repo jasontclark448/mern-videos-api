@@ -1,5 +1,5 @@
 const unAuthor = require('../unAuthor')
-module.exports = ({ message } = {}) => {
+module.exports = () => {
   return unAuthor({
     message: 'userName or password fail'
   })
