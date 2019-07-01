@@ -2,8 +2,8 @@ const express = require('express')
 const Account = require('../models/account.model')
 const addAccountSuccessRes = require('../responses/account/addAccountSuccess.res');
 const addAccountFailRes = require('../responses/account/addAccountFail.res');
-const loginSuccessRes = require('../responses/account/loginSuccess.res')
-const loginFailRes = require('../responses/account/loginFail.res')
+const loginSuccessRes = require('../responses/account/loginSuccess.res');
+const loginFailRes = require('../responses/account/loginFail.res');
 const accountRoutes = express.Router();
 
 accountRoutes.route('/').get((req, res) => {
@@ -35,8 +35,11 @@ accountRoutes.route('/login').post((req, res) => {
     password
   })
   .then((account) => {
+    console.log('xxxxxxxxxx', req.session)
     if (account) {
-      res.json(loginSuccessRes(account));
+      const sessionUser = loginSuccessRes(account);
+      req.session.user = sessionUser
+      res.json(sessionUser);
     } else {
       throw new Error('Account not found');
     }

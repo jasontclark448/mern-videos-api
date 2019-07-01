@@ -1,6 +1,6 @@
 const ok = require('../ok')
 module.exports = (videos = [], pageInfo) => {
-  return {
+  return ok({
     videos: videos.map((item) => {
       return {
         id: item.id,
@@ -15,5 +15,5 @@ module.exports = (videos = [], pageInfo) => {
       'resultsPerPage': pageInfo.resultsPerPage,
       'nextPageToken': pageInfo.nextPageToken
     }
-  }
+  })
 }

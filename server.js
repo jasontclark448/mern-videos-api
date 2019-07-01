@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const PORT = 4000;
 const mongoose = require('mongoose');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+const uuid = require('uuid/v4')
 const accountRoutes = require('./routes/account.routes');
 const videoRoutes = require('./routes/video.routes');
 
@@ -14,6 +17,16 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({
+  secret: process.env.EXPRESS_SESSION_SECRET,
+  cookie: { secure: true },
+  genid: (req) => {
+    console.log('Inside the session middleware')
+    console.log(req.sessionID)
+    return uuid() // use UUIDs for session IDs
+  }
+}))
 
 mongoose.connect('mongodb://127.0.0.1:27017/mern-videos', { 
   useNewUrlParser: true,
